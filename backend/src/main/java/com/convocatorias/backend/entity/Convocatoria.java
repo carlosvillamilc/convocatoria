@@ -1,6 +1,7 @@
 package com.convocatorias.backend.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="convocatoria")
@@ -9,30 +10,30 @@ public class Convocatoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
-    private LocalDate fechaPublicacion;
+    private LocalDateTime fechaPublicacion;
     @Column(columnDefinition = "TEXT")
     private String descripcion;
     private boolean estado;
     private Perfil perfil;
 
-    public Convocatoria(String nombre, LocalDate fechaCreacion, LocalDate fechaPublicacion, String description, boolean estado, Perfil perfil){
+    public Convocatoria(String nombre, LocalDateTime fechaPublicacion, String description, boolean estado, Perfil perfil){
         this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDateTime.now();
         this.fechaPublicacion = fechaPublicacion;
         this.descripcion = description;
         this.estado = estado;
         this.perfil = perfil;
     }
 
-    public Convocatoria(String nombre, LocalDate fechaCreacion, LocalDate fechaPublicacion){
+    public Convocatoria(String nombre, LocalDateTime fechaPublicacion,String descripcion, Perfil perfil){
         this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDateTime.now();
         this.fechaPublicacion = fechaPublicacion;
-        this.descripcion = "test";
+        this.descripcion = descripcion;
         this.estado = true;
-        this.perfil = Perfil.EMPRENDEDOR;
+        this.perfil = perfil;
     }
 
     public Convocatoria(){}
@@ -53,19 +54,11 @@ public class Convocatoria {
         this.nombre = nombre;
     }
 
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public LocalDate getFechaPublicacion() {
+    public LocalDateTime getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(LocalDate fechaPublicacion) {
+    public void setFechaPublicacion(LocalDateTime fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
 

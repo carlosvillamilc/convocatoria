@@ -52,14 +52,17 @@ public class ConvocatoriaController {
     @PostMapping("/crear")
     public ResponseEntity<?> creaConvocatoria(@RequestBody ConvocatoriaDTO convocatoriaDTO){
 
-        if(StringUtils.isBlank(convocatoriaDTO.getNombreConvocatoria()))
+        if(StringUtils.isBlank(convocatoriaDTO.getNombre()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 
-
-        if(convocatoriaService.existsByNombreConvocatoria(convocatoriaDTO.getNombreConvocatoria()))
+        if(convocatoriaService.existsByNombreConvocatoria(convocatoriaDTO.getNombre()))
             return new ResponseEntity(new Mensaje("Ya existe una convocatoria con ese nombre"), HttpStatus.BAD_REQUEST);
 
-        Convocatoria convocatoria = new Convocatoria(convocatoriaDTO.getNombreConvocatoria(), convocatoriaDTO.getFechaCreacion(), convocatoriaDTO.getFechaPublicacion());
+        Convocatoria convocatoria = new Convocatoria(convocatoriaDTO.getNombre(),
+                convocatoriaDTO.getFechaPublicacion(),
+                convocatoriaDTO.getDescripcion(),
+                convocatoriaDTO.getEstado(),
+                convocatoriaDTO.getPerfil());
         convocatoriaService.saveConvocatoria(convocatoria);
         return new ResponseEntity(new Mensaje("Convocatoria creada"), HttpStatus.OK);
     }
@@ -70,18 +73,20 @@ public class ConvocatoriaController {
         if (!convocatoriaService.existsByIdConvocatoria(idConvocatoria))
             return new ResponseEntity(new Mensaje("No existe la convocatoria"), HttpStatus.NOT_FOUND);
 
-        if (convocatoriaService.existsByNombreConvocatoria(convocatoriaDTO.getNombreConvocatoria())
-                && convocatoriaService.getByNombreConvocatoria(convocatoriaDTO.getNombreConvocatoria()).get().getId() != idConvocatoria)
+        if (convocatoriaService.existsByNombreConvocatoria(convocatoriaDTO.getNombre())
+                && convocatoriaService.getByNombreConvocatoria(convocatoriaDTO.getNombre()).get().getId() != idConvocatoria)
             return new ResponseEntity(new Mensaje("El nombre de la convocatoria ya existe"), HttpStatus.NOT_FOUND);
 
-        if(StringUtils.isBlank(convocatoriaDTO.getNombreConvocatoria()))
+        if(StringUtils.isBlank(convocatoriaDTO.getNombre()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 
 
         Convocatoria convocatoria = convocatoriaService.getConvocatoria(idConvocatoria).get();
-        convocatoria.setNombre(convocatoriaDTO.getNombreConvocatoria());
-        convocatoria.setFechaCreacion(convocatoriaDTO.getFechaCreacion());
+        convocatoria.setNombre(convocatoriaDTO.getNombre());
         convocatoria.setFechaPublicacion(convocatoriaDTO.getFechaPublicacion());
+        convocatoria.setDescripcion(convocatoriaDTO.getDescripcion());
+        convocatoria.setPerfil(convocatoriaDTO.getPerfil());
+        convocatoria.setEstado(convocatoriaDTO.getEstado());
         convocatoriaService.saveConvocatoria(convocatoria);
         return new ResponseEntity(new Mensaje("Convocatoria actualizada"), HttpStatus.OK);
     }

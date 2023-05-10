@@ -1,52 +1,76 @@
 package com.convocatorias.backend.dto;
 
+import com.convocatorias.backend.entity.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ConvocatoriaDTO {
 
     //Notación para especificar que el campo no puede venir vacio
     @NotBlank
-    private String nombreConvocatoria;
-    @Past
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate fechaCreacion;
-    @Past
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate fechaPublicacion;
+    private String nombre;
+    @Future
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime fechaPublicacion;
+
+    @NotBlank
+    @Size(min = 50, max = 255)
+    private String descripcion;
+
+    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Perfil perfil;
+
+
+    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.BOOLEAN)
+    private boolean estado;
 
     public ConvocatoriaDTO() {
     }
 
-    public ConvocatoriaDTO(String nombreConvocatoria, LocalDate fechaPublicacion, LocalDate fechaCreacion) {
-        this.nombreConvocatoria = nombreConvocatoria;
+    public ConvocatoriaDTO(String nombreConvocatoria, LocalDateTime fechaPublicacion, String descripcionConvocatoria,Perfil perfil, boolean estado) {
+        this.nombre = nombreConvocatoria;
         this.fechaPublicacion = fechaPublicacion;
-        this.fechaCreacion = fechaCreacion;
+        this.descripcion = descripcionConvocatoria;
+        this.perfil = perfil;
+        this.estado = estado;
     }
 
-    public String getNombreConvocatoria() {
+    public String getNombre() {
 
-        return nombreConvocatoria;
+        return nombre;
     }
-
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public LocalDate getFechaPublicacion() {
+    public LocalDateTime getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(LocalDate fechaPublicacion) {
+    public void setFechaPublicacion(LocalDateTime fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
+    }
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }
