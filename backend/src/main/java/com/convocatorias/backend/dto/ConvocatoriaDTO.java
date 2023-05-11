@@ -10,10 +10,9 @@ import java.time.LocalDateTime;
 
 public class ConvocatoriaDTO {
 
-    //Notación para especificar que el campo no puede venir vacio
     @NotBlank
     private String nombre;
-    @Future
+    @FutureOrPresent(message = "The date must be in the present or future")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime fechaPublicacion;
 
@@ -24,7 +23,6 @@ public class ConvocatoriaDTO {
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Perfil perfil;
-
 
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.BOOLEAN)
