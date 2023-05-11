@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ConvocatoriaService } from '../../services/convocatoria.service';
 import { Convocatoria} from '../../models/convocatoria';
-import { PERFIL, PERFILLIST } from '../../shared';
+
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 @Component({
   selector: 'app-convocatoria-crear',
