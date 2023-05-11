@@ -13,6 +13,7 @@ import { Convocatoria } from '../../models/convocatoria';
 export class ConvocatoriaDetalleComponent implements OnInit {
 
   convocatoria: Convocatoria;
+  diasRestante: number;
 
   constructor(private convocatoriaService: ConvocatoriaService, private activatedRoute: ActivatedRoute, private router: Router ) { }
 
@@ -22,6 +23,7 @@ export class ConvocatoriaDetalleComponent implements OnInit {
     this.convocatoriaService.convocatoriaById(idConvocatoria).subscribe(
       res =>{
         this.convocatoria = res;
+        this.diasRestante = this.calcularDiasRestantes(this.convocatoria.fechaPublicacion);
       },
       err =>{
         Swal.fire({
@@ -39,5 +41,11 @@ export class ConvocatoriaDetalleComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-
+  calcularDiasRestantes(fechaPublicacion:string): number{
+    let fecha = new Date(fechaPublicacion).getTime();
+    let fechaHoy = new Date().getTime();
+    let diferenciaTiempo = fecha - fechaHoy
+    console.log(Math.ceil(diferenciaTiempo / (1000 * 3600 * 24)));
+    return Math.ceil(diferenciaTiempo / (1000 * 3600 * 24));
+  }
 }
