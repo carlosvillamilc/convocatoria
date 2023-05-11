@@ -18,11 +18,11 @@ public class Convocatoria {
     private boolean estado;
     private Perfil perfil;
 
-    public Convocatoria(String nombre, LocalDateTime fechaPublicacion, String description, boolean estado, Perfil perfil){
+    public Convocatoria(String nombre, LocalDateTime fechaPublicacion, String descripcion, boolean estado, Perfil perfil){
         this.nombre = nombre;
         this.fechaCreacion = LocalDateTime.now();
         this.fechaPublicacion = fechaPublicacion;
-        this.descripcion = description;
+        this.descripcion = descripcion;
         this.estado = estado;
         this.perfil = perfil;
     }

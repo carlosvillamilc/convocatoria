@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/convocatorias")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ConvocatoriaController {
 
     @Autowired

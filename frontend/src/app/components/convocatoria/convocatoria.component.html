@@ -1,0 +1,32 @@
+<div class="container mt-3">
+  <table class="table text-center mt-2">
+      <thead class="thead-dark">
+          <tr>
+              <th scope="col"><i class="fa fa-building"></i> Nombre</th>
+              <th scope="col"><i class="fa fa-home"></i>Fecha Publicacion</th>
+              <th scope="col"><i class="fa fa-cog"></i>Estado</th>
+              <th scope="col"><i class="fa fa-cog"></i>Perfil</th>
+              <th scope="col"><i class="fa fa-cog"></i>Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let convocatoria of convocatorias">
+              <td>{{convocatoria.nombre}}</td>
+              <td>{{convocatoria.fechaPublicacion | date:'dd/MM/yyyy'}}</td>
+              <td>{{ convocatoria.estado ? 'Activa' : 'Inactiva' }}</td>
+              <td>{{ convocatoria.perfil | titlecase}}</td>
+              <td>
+                  <button class="btn btn-success" routerLink="/editarConvocatoria/{{convocatoria.id}}">
+                      <i class="fa fa-pen"></i>
+                  </button>
+                  <button class="btn btn-danger" (click)="eliminarConvocatoria(convocatoria.id)">
+                      <i class="fa fa-trash"></i>
+                  </button>
+                  <button class="btn btn-warning" routerLink="/detalleConvocatoria/{{convocatoria.id}}">
+                      <i class="fa fa-eye"></i>
+                  </button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>

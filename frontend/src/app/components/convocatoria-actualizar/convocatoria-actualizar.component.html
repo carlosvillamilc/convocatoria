@@ -1,0 +1,38 @@
+<div class="container mt-3" *ngIf="convocatoria">
+    <div class="row card">
+        <div class="col-md-4 card-body m-auto">
+            <form (ngSubmit)="actualizarConvocatoria()" novalidate #form="ngForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" class="form-control" name="nombre"
+                        [(ngModel)]="convocatoria.nombre" required />
+                </div>
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" type="text" class="form-control" name="descripcion"
+                [(ngModel)]="convocatoria.descripcion" required >
+                </textarea>
+            </div>
+            <div class="form-group">
+              <label for="fechaPublicacion">Fecha Publicación</label>
+              <input matInput [min]="minDate" [matDatepicker]="picker" class="form-control" name="fechaPublicacion" [(ngModel)]="convocatoria.fechaPublicacion" required style="display:inline; width: 250px;">
+              <mat-hint>Dia/Mes/Año</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+            <div class="form-group">
+              <label for="perfil">Perfil</label>
+              <mat-form-field appearance="fill" required style="display: inline;">
+                <mat-select [(value)]="perfil" name="perfil">
+                  <mat-option *ngFor="let perfil of perfilList" [value]="perfil">
+                    {{perfil}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+
+                <button class="btn btn-success btn-block" [disabled]="!form.valid">Actualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
