@@ -25,10 +25,10 @@ public class ConvocatoriaService {
     public  Optional<Convocatoria> getByNombreConvocatoria(String nombreConvocatoria){
         return convocatoriaRepository.findByNombre(nombreConvocatoria);
     }
-    public void saveConvocatoria(Convocatoria convocatoria){
-        convocatoriaRepository.save(convocatoria);
+    public Convocatoria saveConvocatoria(Convocatoria convocatoria){
+        return convocatoriaRepository.save(convocatoria);
     }
-    public void deleteConvocatoria(int idConvocatoria){
+     public void deleteConvocatoria(int idConvocatoria){
         convocatoriaRepository.deleteById((idConvocatoria));
     }
     public boolean existsByIdConvocatoria(int idConvocatoria){

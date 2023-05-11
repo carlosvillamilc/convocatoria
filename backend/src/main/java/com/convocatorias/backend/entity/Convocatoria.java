@@ -2,7 +2,10 @@ package com.convocatorias.backend.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Builder;
 
+
+@Builder
 @Entity
 @Table(name="convocatoria")
 public class Convocatoria {
@@ -19,6 +22,16 @@ public class Convocatoria {
     private Perfil perfil;
 
     public Convocatoria(String nombre, LocalDateTime fechaPublicacion, String descripcion, boolean estado, Perfil perfil){
+        this.nombre = nombre;
+        this.fechaCreacion = LocalDateTime.now();
+        this.fechaPublicacion = fechaPublicacion;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.perfil = perfil;
+    }
+
+    public Convocatoria(int id, String nombre, LocalDateTime fechaPublicacion, LocalDateTime fechaCreacion, String descripcion, boolean estado, Perfil perfil){
+        this.id = id;
         this.nombre = nombre;
         this.fechaCreacion = LocalDateTime.now();
         this.fechaPublicacion = fechaPublicacion;

@@ -1,5 +1,6 @@
 package com.convocatorias.backend.controller;
 
+import com.convocatorias.backend.dto.ApiResponse;
 import com.convocatorias.backend.dto.Mensaje;
 import com.convocatorias.backend.dto.ConvocatoriaDTO;
 import com.convocatorias.backend.entity.Convocatoria;
@@ -29,11 +30,9 @@ public class ConvocatoriaController {
     @GetMapping("/Id/{idConvocatoria}")
     public ResponseEntity<Convocatoria> convocatoriaById(@PathVariable("idConvocatoria") int idConvocatoria){
 
-        if (!convocatoriaService.existsByIdConvocatoria(idConvocatoria))
-            return new ResponseEntity(new Mensaje("No existe la convocatoria"), HttpStatus.NOT_FOUND);
-
-        Convocatoria convocatoria = convocatoriaService.getConvocatoria(idConvocatoria).get();
-        return new ResponseEntity(convocatoria, HttpStatus.OK);
+        return convocatoriaService.getConvocatoria(idConvocatoria)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity(new Mensaje("No existe la convocatoria"), HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/nombre/{nombreConvocatoria}")
@@ -46,10 +45,7 @@ public class ConvocatoriaController {
         return new ResponseEntity(convocatoria, HttpStatus.OK);
     }
 
-    //Con el ? le decimos que no devulve ningún tipo de dato
-    //El body va a ser un JSON
-    //Aqui se usa el apache commons lang
-    // El import de StringUtils es import org.apache.commons.lang3.StringUtils;
+
     @PostMapping("/crear")
     public ResponseEntity<?> creaConvocatoria(@RequestBody ConvocatoriaDTO convocatoriaDTO){
 
@@ -65,7 +61,8 @@ public class ConvocatoriaController {
                 convocatoriaDTO.getEstado(),
                 convocatoriaDTO.getPerfil());
         convocatoriaService.saveConvocatoria(convocatoria);
-        return new ResponseEntity(new Mensaje("Convocatoria creada"), HttpStatus.OK);
+
+        return new ResponseEntity(new ApiResponse(convocatoria, "Convocatoria Creada"), HttpStatus.CREATED);
     }
 
     @PutMapping("/actualizar/{idConvocatoria}")
@@ -89,7 +86,9 @@ public class ConvocatoriaController {
         convocatoria.setPerfil(convocatoriaDTO.getPerfil());
         convocatoria.setEstado(convocatoriaDTO.getEstado());
         convocatoriaService.saveConvocatoria(convocatoria);
-        return new ResponseEntity(new Mensaje("Convocatoria actualizada"), HttpStatus.OK);
+
+        return new ResponseEntity(new ApiResponse(convocatoria, "Convocatoria Actualizada"), HttpStatus.OK);
+
     }
 
     @DeleteMapping("/borrar/{idConvocatoria}")
@@ -98,6 +97,7 @@ public class ConvocatoriaController {
             return new ResponseEntity(new Mensaje("No existe la convocatoria"), HttpStatus.NOT_FOUND);
         convocatoriaService.deleteConvocatoria(idConvocatoria);
         return new ResponseEntity(new Mensaje("Convocatoria eliminada"), HttpStatus.OK);
+
     }
 
 }
