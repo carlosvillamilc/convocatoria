@@ -3,6 +3,7 @@ import { Convocatoria } from '../../models/convocatoria';
 import { ConvocatoriaService } from '../../services/convocatoria.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-convocatoria-actualizar',
@@ -24,6 +25,8 @@ export class ConvocatoriaActualizarComponent implements OnInit {
 
   perfilList: string[] = ['Emprendedor', 'Empresario', 'Proveedor', 'Otros'];
 
+  color: ThemePalette = 'primary';
+  
   constructor(private convocatoriaService: ConvocatoriaService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.minDate = new Date();
   }

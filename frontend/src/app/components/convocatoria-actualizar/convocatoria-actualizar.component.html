@@ -30,6 +30,17 @@
                 </mat-select>
               </mat-form-field>
           </div>
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <section class="example-section">
+              <mat-slide-toggle
+                  [color]="color"
+                  [(ngModel)]="convocatoria.estado"
+                  name="estado">
+                Estado convocatoria {{convocatoria.estado ? "Activa" : "Inactiva" }}
+              </mat-slide-toggle>
+            </section>
+          </div>
 
                 <button class="btn btn-success btn-block" [disabled]="!form.valid">Actualizar</button>
             </form>

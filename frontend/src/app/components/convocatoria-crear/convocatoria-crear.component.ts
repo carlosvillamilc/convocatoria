@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConvocatoriaService } from '../../services/convocatoria.service';
 import { Convocatoria} from '../../models/convocatoria';
 
+import {ThemePalette} from '@angular/material/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -24,6 +25,8 @@ export class ConvocatoriaCrearComponent implements OnInit {
   perfilList: string[] = ['Emprendedor', 'Empresario', 'Proveedor', 'Otros'];
 
   minDate: Date;
+
+  color: ThemePalette = 'primary';
 
   constructor(private convocatoriaService: ConvocatoriaService, private router: Router) {
     this.minDate = new Date();
